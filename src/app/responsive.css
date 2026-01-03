@@ -237,6 +237,11 @@
         margin-top: 20px;
     }
 
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+
     .col-md-12:has(.impact-content) {
         order: 1;
     }
