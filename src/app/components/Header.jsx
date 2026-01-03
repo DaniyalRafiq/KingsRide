@@ -77,7 +77,9 @@ export const Header = () => {
                     <Offcanvas show={showOffcanvas} onHide={handleClose} placement="start">
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>
-                                <Image src="/headerlogooo.png" alt="Logo" width={170} height={63} />
+                                <Link href="/">
+                                    <Image src="/headerlogooo.png" alt="Logo" width={170} height={63} />
+                                </Link>
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
