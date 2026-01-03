@@ -242,6 +242,13 @@
         gap: 15px;
     }
 
+    .map-car-bottom .theme-btn {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .col-md-12:has(.impact-content) {
         order: 1;
     }
