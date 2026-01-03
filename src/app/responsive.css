@@ -13,9 +13,9 @@
         text-align: center;
     }
 
-    section {
+    /* section {
         overflow: hidden;
-    }
+    } */
 
     .hero-content {
         flex-direction: column;
@@ -203,6 +203,85 @@
         align-items: center;
         text-align: center;
     }
+
+    .our-story-content .main-heading {
+        align-items: center;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .us-cont {
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .us-cont .main-heading {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+        height: auto;
+    }
+
+    .us-card {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .impact-content {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .col-md-12:has(.impact-content) {
+        order: 1;
+    }
+
+
+    .col-md-12:has(img)>img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    section.us {
+        padding-bottom: 0;
+    }
+    .offcanvas-title.h5 img {
+    width: 200px;
+    object-fit: cover;
+}
+
+.offcanvas-body .gap-3 {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.offcanvas .theme-btn-secondary {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.map-car-main {
+    position: unset;
+    transform: none;
+}
+
+
+.map-wrapper > .img-box {
+    display: none;
+}
+
+.taxi-main-card {
+    margin-bottom: 20px;
+}
 }
 
 

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { useLanguage } from '../Context/LanguageContext';
 import { taxiTranslations } from '../translations/taxiTranslations';
@@ -11,16 +14,30 @@ const Taxi = () => {
     const { language } = useLanguage();
     const t = taxiTranslations[language] || taxiTranslations.English;
 
+    useEffect(() => {
+        AOS.init({
+            duration: 900,
+            easing: 'ease-out-cubic',
+            once: false, // animate once
+            mirror: false,
+            anchorPlacement: 'top-bottom',
+        });
+    }, []);
+
     return (
         <section>
             <Container>
-                <div className="taxi-heading">
+
+                {/* Heading */}
+                <div className="taxi-heading" data-aos="fade-up">
                     <h2>{t.heading}</h2>
                 </div>
 
                 <Row className="justify-content-center">
+
+                    {/* Taxi Cards */}
                     {t.cards.map((card, index) => (
-                        <Col lg="4" md="6" sm="12" key={index}>
+                        <Col lg="4" md="6" sm="12" key={index} data-aos="fade-up" data-aos-delay={100 + index * 100}>
                             <div className="taxi-card">
                                 <h6>{card.title}</h6>
                                 <p>{card.para}</p>
@@ -29,7 +46,7 @@ const Taxi = () => {
                     ))}
 
                     {/* Google Play */}
-                    <Col lg="6" md="12">
+                    <Col lg="6" md="12" data-aos="fade-up" data-aos-delay="500">
                         <div className="taxi-main-card">
                             <h4>{t.download.title}</h4>
                             <p>{t.download.para}</p>
@@ -48,7 +65,7 @@ const Taxi = () => {
                     </Col>
 
                     {/* App Store */}
-                    <Col lg="6" md="12">
+                    <Col lg="6" md="12" data-aos="fade-up" data-aos-delay="600">
                         <div className="taxi-main-card seconnd">
                             <h4>{t.download.title}</h4>
                             <p>{t.download.para}</p>
@@ -65,6 +82,7 @@ const Taxi = () => {
                             </div>
                         </div>
                     </Col>
+
                 </Row>
             </Container>
         </section>

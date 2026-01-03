@@ -20,14 +20,11 @@ const About = () => {
 
   return (
     <>
-
-
-
       <ServicesHero
         title={t.title}
         description={t.description}
       />
-
+      
       <OurStory />
       <Us />
       <OurImpact />

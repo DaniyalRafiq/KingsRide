@@ -75,14 +75,14 @@ export const Header = () => {
                     <Offcanvas show={showOffcanvas} onHide={handleClose} placement="start">
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>
-                                <Image src="/logo.png" alt="Logo" width={120} height={40} />
+                                <Image src="/headerlogooo.png" alt="Logo" width={170} height={63} />
+
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <div className="d-flex flex-column gap-3">
-                                <Link href="/about" className='header-link' onClick={handleClose}>{t.about}</Link>
-                                <Link href="/Drive" className='theme-btn theme-btn-secondary theme-btn-secondary-border' onClick={handleClose}>
-                                    {t.driveWithUs}
+                                <Link href="/about" className='theme-btn theme-btn-secondary theme-btn-secondary-border' onClick={handleClose}>
+                                    {t.about}
                                 </Link>
                                 <Link href="/Ride" className='theme-btn' onClick={handleClose}>
                                     {t.bookRide}

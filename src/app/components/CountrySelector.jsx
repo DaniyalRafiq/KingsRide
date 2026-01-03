@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,54 +22,72 @@ const countries = [
 ];
 
 export function CountrySelector() {
-    const { changeLanguage } = useLanguage(); // 🌍 GLOBAL LANGUAGE CONTEXT
+    const { changeLanguage } = useLanguage();
 
-    // ✅ Header applied state
     const [appliedCountry, setAppliedCountry] = useState(countries[0]);
     const [appliedLanguage, setAppliedLanguage] = useState("English");
 
-    // 🟡 Temporary modal selection state
     const [selectedCountry, setSelectedCountry] = useState(countries[0]);
     const [selectedLanguage, setSelectedLanguage] = useState("English");
 
     const [showModal, setShowModal] = useState(false);
 
-    // Options for react-select
+    // ✅ LOAD SAVED DATA (NO UI IMPACT)
+    useEffect(() => {
+        const savedCountryCode = localStorage.getItem("countryCode");
+        const savedLanguage = localStorage.getItem("language");
+
+        if (savedCountryCode) {
+            const country = countries.find(c => c.code === savedCountryCode);
+            if (country) {
+                setAppliedCountry(country);
+                setSelectedCountry(country);
+            }
+        }
+
+        if (savedLanguage) {
+            setAppliedLanguage(savedLanguage);
+            setSelectedLanguage(savedLanguage);
+            changeLanguage(savedLanguage);
+        }
+    }, []);
+
     const countryOptions = countries.map((country) => ({
         value: country.code,
         label: country.name,
         country,
     }));
 
-    // Change country in modal
     const handleCountryChange = (option) => {
         setSelectedCountry(option.country);
-        // Set language dropdown to ["English", country.localLanguage]
-        setSelectedLanguage(option.country.language === "English" ? "English" : option.country.language);
+        setSelectedLanguage(
+            option.country.language === "English"
+                ? "English"
+                : option.country.language
+        );
     };
 
-    // Change language in modal
     const handleLanguageChange = (e) => {
         setSelectedLanguage(e.target.value);
     };
 
-    // Save changes and update website language globally
     const handleSave = () => {
         setAppliedCountry(selectedCountry);
         setAppliedLanguage(selectedLanguage);
 
-        // 🌍 Update language context for entire website
-        changeLanguage(selectedLanguage);
+        // ✅ SAVE SELECTION
+        localStorage.setItem("countryCode", selectedCountry.code);
+        localStorage.setItem("language", selectedLanguage);
 
+        changeLanguage(selectedLanguage);
         setShowModal(false);
     };
 
-    // Language select options: always English + country local language
-    const languageOptions = selectedCountry.language === "English"
-        ? ["English"]
-        : ["English", selectedCountry.language];
+    const languageOptions =
+        selectedCountry.language === "English"
+            ? ["English"]
+            : ["English", selectedCountry.language];
 
-    // Styles for react-select
     const customStyles = {
         option: (provided) => ({
             ...provided,
@@ -87,7 +105,6 @@ export function CountrySelector() {
 
     return (
         <>
-            {/* Header button */}
             <button className="country-header-btn" onClick={() => setShowModal(true)}>
                 <div className="icon">
                     <appliedCountry.Flag className="flag-sm" style={{ width: "24px" }} />
@@ -95,7 +112,6 @@ export function CountrySelector() {
                 <span>{appliedLanguage}</span>
             </button>
 
-            {/* Modal */}
             <Modal
                 show={showModal}
                 onHide={() => setShowModal(false)}
@@ -110,7 +126,6 @@ export function CountrySelector() {
                 <h5 className="modal-title">Country and Language</h5>
 
                 <Form className="d-flex gap-2 mt-3">
-                    {/* Country Select */}
                     <div style={{ flex: 1 }}>
                         <Select
                             options={countryOptions}
@@ -128,7 +143,6 @@ export function CountrySelector() {
                         />
                     </div>
 
-                    {/* Language Select */}
                     <Form.Select
                         value={selectedLanguage}
                         onChange={handleLanguageChange}
@@ -142,10 +156,7 @@ export function CountrySelector() {
                     </Form.Select>
                 </Form>
 
-                <Button
-                    className="theme-btn country-btn mt-3"
-                    onClick={handleSave}
-                >
+                <Button className="theme-btn country-btn mt-3" onClick={handleSave}>
                     Save
                 </Button>
             </Modal>
